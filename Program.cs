@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using InvestTrack.API.Data; 
+using InvestTrack.API.Data;
+using InvestTrack.API.Repositories;
+using InvestTrack.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<InvestTrackContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IPortfolioService, PortfolioService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
