@@ -11,6 +11,8 @@ builder.Services.AddDbContext<InvestTrackContext>(options =>
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IPortfolioService, PortfolioService>();
+builder.Services.AddScoped<IAtivoFinanceiroRepository, AtivoFinanceiroRepository>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
