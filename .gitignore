@@ -1,0 +1,22 @@
+# Arquivos e pastas gerados pelo sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos gerados por IDEs
+.idea/
+.vs/
+*.suo
+*.user
+
+# Pastas de build e de pacotes
+[Bb]in/
+[Oo]bj/
+[Nn]uget/
+packages/
+
+# Arquivos de configuração de build
+*.csproj.user
+*.sln.docstates
+
+# Arquivos de log
+*.log
