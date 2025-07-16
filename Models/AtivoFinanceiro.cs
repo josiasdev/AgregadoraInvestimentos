@@ -8,5 +8,4 @@ public class AtivoFinanceiro
     public int Quantidade { get; set; }
     public decimal PrecoMedioCompra { get; set; }
     public int UsuarioId { get; set; } // Chave estrangeira
-    public Usuario Usuario { get; set; }
 }
