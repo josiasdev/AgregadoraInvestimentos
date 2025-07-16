@@ -1,6 +1,8 @@
+using InvestTrack.API.Models;
+
 namespace InvestTrack.API.Services;
 
-public class IPortfolioService
+public interface IPortfolioService
 {
-    
+    Task<object> GetPortfolioSummaryAsync(int usuarioId);
 }
