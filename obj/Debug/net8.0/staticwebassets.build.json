@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "eW1MWfxQgqY4IBr76i8lZc46a7XjJfIZKtS9EsNLLNU=",
+  "Source": "InvestTrack.API",
+  "BasePath": "_content/InvestTrack.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
