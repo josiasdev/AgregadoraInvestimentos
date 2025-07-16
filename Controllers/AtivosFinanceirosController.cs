@@ -65,14 +65,18 @@ namespace InvestTrack.API.Controllers
 
         // PUT: /ativosfinanceiros/10
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAtivo(int id, [FromBody] AtivoFinanceiro ativo)
+        public async Task<IActionResult> UpdateAtivo(int id, [FromBody] AtualizarAtivoFinanceiroDto ativo)
         {
-            if (id != ativo.Id)
+            var ativoExistente = await _ativoRepository.GetByIdAsync(id);
+            if (ativoExistente == null)
             {
-                return BadRequest("ID da rota não corresponde ao ID do ativo.");
+                return NotFound(); // Retorna 404 se não encontrar.
             }
-
-            await _ativoRepository.UpdateAsync(ativo);
+            ativoExistente.Ticker = ativo.Ticker;
+            ativoExistente.NomeEmpresa = ativo.NomeEmpresa;
+            ativoExistente.Quantidade = ativo.Quantidade;
+            ativoExistente.PrecoMedioCompra = ativo.PrecoMedioCompra;
+            await _ativoRepository.UpdateAsync(ativoExistente);
             return NoContent(); // HTTP 204
         }
 
