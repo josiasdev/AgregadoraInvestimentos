@@ -1,6 +1,8 @@
 using InvestTrack.API.Models;
 using InvestTrack.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using InvestTrack.API.DTOs;
+
 
 namespace InvestTrack.API.Controllers
 {
@@ -38,7 +40,7 @@ namespace InvestTrack.API.Controllers
 
         // POST: /ativosfinanceiros
         [HttpPost]
-        public async Task<ActionResult<AtivoFinanceiro>> CreateAtivo([FromBody] AtivoFinanceiro novoAtivo)
+        public async Task<ActionResult<AtivoFinanceiro>> CreateAtivo([FromBody] CriarAtivoFinanceiroDto novoAtivo)
         {
             if (novoAtivo == null)
             {
@@ -47,9 +49,17 @@ namespace InvestTrack.API.Controllers
             var usuario = await _usuarioRepository.GetByIdAsync(novoAtivo.UsuarioId);
             if (usuario == null)
             {
-                return BadRequest($"Usuário com ID {novoAtivo.UsuarioId} não existe. Não é possível criar o ativo.");
+                return BadRequest($"Usuário com ID {novoAtivo.UsuarioId} não existe.");
             }
-            var ativoCriado = await _ativoRepository.AddAsync(novoAtivo);
+            var ativoParaSalvar = new AtivoFinanceiro
+            {
+                Ticker = novoAtivo.Ticker,
+                NomeEmpresa = novoAtivo.NomeEmpresa,
+                Quantidade = novoAtivo.Quantidade,
+                PrecoMedioCompra = novoAtivo.PrecoMedioCompra,
+                UsuarioId = novoAtivo.UsuarioId
+            };
+            var ativoCriado = await _ativoRepository.AddAsync(ativoParaSalvar);
             return CreatedAtAction(nameof(GetAtivo), new { id = ativoCriado.Id }, ativoCriado);
         }
 
