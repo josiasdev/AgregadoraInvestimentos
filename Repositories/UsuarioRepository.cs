@@ -42,5 +42,11 @@ namespace InvestTrack.API.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<Usuario> GetByIdWithPortfolioAsync(int id)
+        {
+            return await _context.Usuarios
+                .Include(u => u.Portfolio)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
     }
 }
