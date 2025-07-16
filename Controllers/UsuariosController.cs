@@ -1,5 +1,6 @@
 using InvestTrack.API.Models;
 using InvestTrack.API.Repositories;
+using InvestTrack.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvestTrack.API.Controllers
@@ -9,10 +10,13 @@ namespace InvestTrack.API.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly IUsuarioRepository _repository;
+        private readonly IPortfolioService _portfolioService;
 
-        public UsuariosController(IUsuarioRepository repository)
+
+        public UsuariosController(IUsuarioRepository repository, IPortfolioService portfolioService)
         {
             _repository = repository;
+            _portfolioService = portfolioService;
         }
 
         // GET: /usuarios
@@ -74,6 +78,18 @@ namespace InvestTrack.API.Controllers
 
             await _repository.DeleteAsync(id);
             return NoContent(); // HTTP 204
+        }
+        
+        // GET: /usuarios/5/portfolio/summary
+        [HttpGet("{id}/portfolio/summary")]
+        public async Task<IActionResult> GetPortfolioSummary(int id)
+        {
+            var summary = await _portfolioService.GetPortfolioSummaryAsync(id);
+            if (summary == null)
+            {
+                return NotFound($"Portfólio para o usuário com ID {id} não encontrado.");
+            }
+            return Ok(summary);
         }
     }
 }
